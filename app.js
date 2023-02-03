@@ -52,6 +52,19 @@ app.get("/createotp", (req, res) => {
     });
 });
 
+// Create MySQL OTP Table
+app.get("/createmotions", (req, res) => {
+    let sql = "CREATE TABLE motions (id int AUTO_INCREMENT, date VARCHAR(255), time VARCHAR(255), date_time VARCHAR(255), captured_movement BLOB, PRIMARY KEY (id))";
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            console.log("MySQL DB motions Table created");
+        }
+    });
+});
+
 // MySQL Database Connection
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -70,7 +83,6 @@ db.connect((err) => {
 
 
 // Middleware
-app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));

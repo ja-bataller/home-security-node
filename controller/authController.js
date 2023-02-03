@@ -226,3 +226,24 @@ exports.resetPassword = (req, res) => {
     });
   });
 };
+
+exports.capture = (req, res) => {
+    console.log(req.body);
+  
+    // Destructure request body from front-end
+    const {
+        date,
+        time,
+        date_time,
+        file,
+      } = req.body;
+  
+      if (date && time && date_time && file) {
+        db.query("INSERT INTO motions SET ?", { date: date, time: time, date_time: date_time, captured_movement: file }, (error, results) => {
+            if (error) {
+                return console.log(error);
+              }
+            return res.json({message:"Motion captured saved."})
+        });
+      }
+  };
