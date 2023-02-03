@@ -39,6 +39,19 @@ app.get("/createdbtable", (req, res) => {
     });
 });
 
+// Create MySQL OTP Table
+app.get("/createotp", (req, res) => {
+    let sql = "CREATE TABLE otp (id int AUTO_INCREMENT, email VARCHAR(255), otp VARCHAR(255), PRIMARY KEY (id))";
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            console.log("MySQL DB otp Table created");
+        }
+    });
+});
+
 // MySQL Database Connection
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
